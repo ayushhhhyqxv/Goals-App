@@ -1,0 +1,178 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Lexend Deca", sans-serif;
+    background-color:#48A30012;
+    scroll-behavior: smooth;
+    margin-bottom: 100px;
+}
+
+.container {
+    background-color:white;
+    max-width: 650px;
+    border-radius: 8px;
+    margin-inline : auto;
+    padding : 30px 30px ;
+    box-shadow: 3px 5px black;
+}
+
+.heading {
+    letter-spacing: -2px;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+.heading span {
+    color: brown;
+}
+
+.welcome-img{
+    vertical-align: middle;
+    width: 45px;
+    margin-left: 5px;
+}
+
+p{
+    color: darkslategrey;
+}
+
+.progress-bar{
+    margin-top: 2rem !important;
+    margin-bottom:5rem !important;
+    background-color: yellow;
+    height: 30px;
+    border-radius: 18px;
+    box-shadow: 1px 1px black;
+}
+.progress-bar-fill{
+    margin-top: 2rem !important;
+    background-color: blue;
+    width: 0%;
+    overflow: hidden;
+    height: 30px;
+    border-radius: 18px;
+    font-family: "JetBrains Mono Medium";
+    color: white;
+    font-size: 11px;
+    letter-spacing: -0.8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+}
+
+.error-label{
+    color: cadetblue;
+    position: relative;
+    top: 15px;
+    display: none;
+}
+
+.show-error .error-label{
+    display: block;
+}
+
+.goal-index{
+    margin-top: 1.8rem !important;
+    background-color: blue;
+    border-radius: 17px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding: 22px;
+    gap: 16px;
+    box-shadow: 2px 2px black;
+}
+
+.custom-index{
+    width:32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid darkorange;
+    background-color: white;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self:stretch;
+    cursor: pointer;
+}
+
+.input-data{
+    background-color: blue;
+    color:white;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    flex-grow: 1;
+    outline:none;
+
+}
+.input-data::placeholder{
+    color: white;
+}
+
+.quote{
+    text-align: center;
+    font-family: "JetBrains Mono SemiBold";
+    font-size: 17px;
+    margin-top: 3rem;
+    color: black;
+    letter-spacing: -1.7px;
+
+}
+.footer {
+    text-align: center;
+    font-family: "JetBrains Mono SemiBold";
+    font-size: 17px;
+    margin-top: 3rem;
+    color: darkorange;
+    letter-spacing: -1.7px;
+}
+
+.completed .custom-index {
+    background-color: orange;
+    border:1px solid orange;
+}
+.completed .input-data {
+    color : yellow;
+    text-decoration-line: line-through;
+}
+
+.tick {
+    width: 18px;
+    display: none;
+}
+.completed .tick {
+    display: block;
+}
+@media(max-width: 780px ){
+    .container{
+        max-width: 350px;
+        min-height: inherit;
+    }
+    .heading {
+        font-size: 2rem;
+    }
+    .title{
+        font-size: 1.5rem;
+    }
+    .welcome-img{
+        width: 36px;
+    }
+    .input-data{
+        max-width: 200px;
+    }
+    .custom-index{
+        width:20px;
+        height:20px;
+    }
+    .tick{
+        width:12px;
+    }
+
+}
