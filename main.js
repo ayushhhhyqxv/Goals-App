@@ -15,6 +15,9 @@ checkBoxList.forEach(checkBox => {
                 if (allCheckedInputs) {
                         checkBox.parentElement.classList.toggle('completed');
                         progressList.style.width = "33.33%"
+                        const inputID = checkBox.nextElementSibling.id
+                        allGoals[inputID].condition = !allGoals[inputID].condition
+                        localStorage.setItem('allGoals', JSON.stringify(allGoals)) 
                 }
                 else {
                         progressBarInput.classList.add('show-error');
@@ -23,17 +26,26 @@ checkBoxList.forEach(checkBox => {
 
 })
 
-allInputFields.forEach(field => {
-        input.value = allGoals[input.id].name;
-        field.addEventListener('focus', () => {
+allInputFields.forEach(input => {
+        
+
+       
+
+        input.addEventListener('focus', () => {
                 progressBarInput.classList.remove('show-error');
         })
-        field.addEventListener('input',(e)=>{
+        input.addEventListener('input',(e)=>{
                 allGoals[input.id] = {
                         name : e.target.value,
                         condition : false
                 }
                 localStorage.setItem('allGoals',JSON.stringify(allGoals))
         })
+
+        input.value = allGoals[input.id].name;
+
+        if(allGoals[input.id].condition){
+                input.parentElement.classList.add('completed')
+        }
 })
 
