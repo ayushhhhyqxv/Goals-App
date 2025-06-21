@@ -1,51 +1,84 @@
-// Addition of rotation effect of logo
-
 const checkBoxList = document.querySelectorAll('.custom-index');
 const allInputFields = document.querySelectorAll('.input-data');
 const errorMessage = document.querySelector('.error-label');
 const progressBarInput = document.querySelector('.progress-bar');
 const progressList = document.querySelector(".progress-bar-fill");
-const allGoals = JSON.parse(localStorage.getItem('allGoals')) || {};
+const label = document.querySelector(".progress-label")
+const quotes = [
+        'Raise the bar by completing the goal',
+        'Woah,You are going well',
+        'Almost Finished !',
+        'Excellent,Done with All Tasks'
+
+]
 
 
-checkBoxList.forEach(checkBox => {
-        checkBox.addEventListener('click', () => {
-                const allCheckedInputs = [...allInputFields].every((input) => {return input.value});
+let allGoals = JSON.parse(localStorage.getItem('allGoals')) || {};
+let completedGoalsCount = Object.values(allGoals).filter((goal)=>goal.condition).length
+progressList.style.width = `${completedGoalsCount/3 *100}%`
+progressList.innerHTML = `${completedGoalsCount}/3 Completed !`
 
-                if (allCheckedInputs) {
-                        checkBox.parentElement.classList.toggle('completed');
-                        progressList.style.width = "33.33%"
-                        const inputID = checkBox.nextElementSibling.id
-                        allGoals[inputID].condition = !allGoals[inputID].condition
-                        localStorage.setItem('allGoals', JSON.stringify(allGoals)) 
-                }
-                else {
-                        progressBarInput.classList.add('show-error');
-                }
-        })
+if (Object.keys(allGoals).length === 0) {
+    allInputFields.forEach(input => {
+        allGoals[input.id] = {
+            name: '',
+            condition: false
+        };
+    });
+}
 
-})
+checkBoxList.forEach((checkBox, index) => {
+    checkBox.addEventListener('click', () => {
+        const allCheckedInputs = [...allInputFields].every(input => { return input.value});
 
-allInputFields.forEach(input => {
+        if (allCheckedInputs) {
+                const input = allInputFields[index]; 
+                const inputID = input.id;
+
         
 
-       
+                allGoals[inputID].condition = !allGoals[inputID].condition;
+                completedGoalsCount = Object.values(allGoals).filter((goal)=>goal.condition).length
+                progressList.style.width = `${completedGoalsCount/3 *100}%`
+                progressList.innerHTML = `${completedGoalsCount}/3 Completed !`
 
-        input.addEventListener('focus', () => {
-                progressBarInput.classList.remove('show-error');
-        })
-        input.addEventListener('input',(e)=>{
-                allGoals[input.id] = {
-                        name : e.target.value,
-                        condition : false
-                }
-                localStorage.setItem('allGoals',JSON.stringify(allGoals))
-        })
+                label.innerHTML = quotes[completedGoalsCount]
 
-        input.value = allGoals[input.id].name;
+                localStorage.setItem('allGoals', JSON.stringify(allGoals));
+                checkBox.parentElement.classList.toggle('completed');
+        }else {
+            progressBarInput.classList.add('show-error');
+        }
+    });
+});
+
+allInputFields.forEach(input => {
+
+//     if (!allGoals[input.id]) {
+//         allGoals[input.id] = { name: '', condition: false };
+//     }
+
+    input.value = allGoals[input.id].name || '';
+
+    if (allGoals[input.id].condition) {
+        input.parentElement.classList.add('completed');
+    }
+
+    input.addEventListener('focus', () => {
+        progressBarInput.classList.remove('show-error');
+        
+    });
+
+    input.addEventListener('input', (e) => {
 
         if(allGoals[input.id].condition){
-                input.parentElement.classList.add('completed')
+                input.value = allGoals[input.id].name
+                return
         }
-})
 
+        allGoals[input.id] = {
+            name: e.target.value,
+        };
+        localStorage.setItem('allGoals', JSON.stringify(allGoals));
+    });
+});
