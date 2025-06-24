@@ -1,0 +1,11 @@
+FROM nginx:alpine
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY . /usr/share/nginx/html/
+
+RUN ln -s /usr/share/nginx/html/main.html /usr/share/nginx/html/index.html
+
+EXPOSE 80   
+
+# Make sure to link to your port with NGINX port 80 for no errors !
